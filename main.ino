@@ -1,14 +1,19 @@
-// LED Blinking with delay on Arduino
+/* LED Blinking with delay using STM32 HAL */
 
-int ledPin = 13;
+#include "stm32f1xx_hal.h"
 
-void setup() {
-  pinMode(ledPin, OUTPUT);
-}
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
 
-void loop() {
-  digitalWrite(ledPin, HIGH); // LED ON
-  delay(1000);                // Wait 1 second
-  digitalWrite(ledPin, LOW);  // LED OFF
-  delay(1000);                // Wait 1 second
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+
+  while (1)
+  {
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13); // Toggle LED pin
+    HAL_Delay(1000); // 1 second delay
+  }
 }
